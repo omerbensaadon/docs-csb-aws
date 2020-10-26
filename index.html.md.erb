@@ -1,0 +1,102 @@
+---
+title: Cloud Service Broker
+owner: Cloud Service Broker
+---
+
+<strong><%= modified_date %></strong>
+
+This documentation describes the <%= vars.product_full %>.
+
+
+## <a id='overview'></a> Overview
+
+The <%= vars.product_full %> enables platform operators to easily expose services to their developers
+from any public cloud with a Terraform provider.
+<%= vars.product_short %> is thoroughly extensible, and can expose new services or public clouds
+through the use of custom brokerpaks.
+The <%= vars.product_full %> tile released on <%= vars.product_network %> currently supports Azure.
+
+
+## <a id='features'></a> Key Features
+
+<%= vars.product_short %> includes the following key features:
+
+- **Easily extensible and maintainable:** <%= vars.product_short %> uses brokerpaks to expose
+services. If your target public cloud has a Terraform provider, you can provision services
+through a common interface using standard Cloud Foundry CLI (cf CLI) commands.
+For more information about brokerpaks, see
+[Brokerpak](https://github.com/pivotal/cloud-service-broker/blob/master/docs/brokerpak-intro.md)
+in GitHub and the [Terraform documentation](https://www.terraform.io/docs/providers/index.html).
+- **One common broker for all brokered services:** <%= vars.product_short %> decouples the service
+broker functionality from the catalog of services that it exposes.
+- **CredHub integration out-of-the-box:** CredHub encrypts and manages all the secrets associated
+with your usage of cloud services.
+- **Community:** When you expose a service through a brokerpak, you can make it available to
+everyone who uses <%= vars.product_short %> and vice versa. For more information, see the
+[Brokerpak](https://github.com/pivotal/cloud-service-broker/blob/master/docs/brokerpak-intro.md)
+GitHub repository.
+- **Service migration through Terraform:** Easily migrate existing services through the import
+feature in Terraform. For more information, see the
+[Terraform documentation](https://www.terraform.io/docs/import/index.html).
+
+
+## <a id="snapshot"></a> Product Snapshot
+
+The following table provides version and version-support information about <%= vars.product_short %>.
+
+<table class="nice">
+    <th>Element</th>
+    <th>Details</th>
+    <tr>
+        <td>Tile version</td>
+        <td>1.1.X</td>
+    </tr>
+    <tr>
+        <td>Release date</td>
+        <td>MONTH DAY, 2020</td>
+    </tr>
+    <tr>
+        <td>Software component version</td>
+        <td>1.0</td>
+    </tr>
+    <tr>
+        <td>Compatible <%= vars.ops_manager %> versions</td>
+        <td>2.7 and later</td>
+    </tr>
+    <tr>
+        <td>Compatible <%= vars.app_runtime_full %> version</td>
+        <td>2.7 and later</td>
+    </tr>
+        <tr>
+        <td>Compatible <%= vars.windows_runtime_full %> version</td>
+        <td>2.7 and later</td>
+    </tr>
+    <tr>
+        <td>IaaS support</td>
+        <td>Azure</td>
+    </tr>
+</table>
+
+
+## <a id="reqs"></a> Requirements
+
+<%= vars.product_short %> has the following requirements:
+
++ Access to the console <%# What console? CSB console? %> on Azure.
++ <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>) installed on your platform of choice.
+
+
+## <a id="limitations"></a> Limitations
+
+<%= vars.product_short %> has the following limitations:
+
++ Currently the broker can only be extended to additional IaaS or services by pulling the broker
+from GitHub. The tiles do not support custom brokerpaks at this time.
++ Currently the broker does not support cross-IaaS provisioning of service instances.
+
+## <a id="feedback"></a> Feedback
+
+If you have a feature request, questions, or information about an issue, please open an issue on
+the [cloud-service-broker](https://github.com/pivotal/cloud-service-broker) GitHub repository or
+post in the #cloud-service-broker-beta [Cloud Foundry Slack](https://slack.cloudfoundry.org/)
+channel.
