@@ -5,20 +5,43 @@ owner: Cloud Service Broker
 
 <strong><%= modified_date %></strong>
 
-This topic describes how to install and configure <%= vars.product_short %> on AWS.
+This topic describes how to install and configure <%= vars.product_full %> (<%= vars.product_short %>).
 
-## <a id="prereq"></a> Prerequisite for Installing <%= vars.product_short %> on AWS
+## <a id="prereq"></a> Prerequisite for Installing <%= vars.product_short %>
 
-### CloudFoundry running on AWS.
-The AWS Brokerpak services are provisioned with firewall rules that only allow internal connectivity. This allows `cf push`ed applications access, while denying any public access.
+Before you install <%= vars.product_short %>, you must have/do:
 
-### AWS Service Credentials
-The services need to be provisioned in the same AWS account that the foundation is running in. To do this, the broker needs the following service principal credentials to manage resources within that account:
-- Access Key ID
-- Secret Access Key
+* **Cloud Foundry running on AWS**:
 
-#### Required IAM Policies
-The AWS account represented by the above Access Key and Secret needs the following permission policies:
+    (Q1: Are you saying you support open source CF?
+Or do customers have to have Ops Manager (what versions?) and Tanzu Application Service for VMs
+(what versions?)
+
+    "The AWS Brokerpak services are provisioned with firewall rules that only allow internal connectivity.
+This allows `cf push`ed applications access, while denying any public access."
+
+    Q2: What's the relation between this CF prereq and the firewall rules?
+
+    Q3: Are the brokerpak services branded by AWS? or are these brokerpak services for AWS?
+)
+   See [Link]().
+
+* **AWS Service Credentials:**
+
+    The services (which services?) need to be provisioned in the same AWS account
+    that the foundation is running in.
+    To do this, the broker needs the following service principal credentials
+    (Q4: I think this is Azure only term, Is there an AWS equivalent?)
+to manage resources within that account:
+
+    - Access Key ID
+    - Secret Access Key
+
+    See [Link]().
+
+* **IAM Policies:**
+
+    The AWS account represented by the Access Key and Secret needs the following permission policies:
 ```json
 {
         "Version": "2012-10-17",
@@ -129,7 +152,7 @@ To configure AWS credentials:
     | AWS Access Key | Enter the AWS Access Key |
     | AWS Secret Access Key | Enter the AWS Secret Access Key |
     | Region | Enter the Region where your VPC is located |
-  
+
 
 
 1. Click **Save**.
@@ -176,7 +199,7 @@ An example is provided, using the smallest possible size, within each service.
 
 To configure services and service plans:
 
-1. Click the already-installed <%= vars.product_short %> for AWS tile in your
+1. Click the already-installed <%= vars.product_short %> tile in your
 <%= vars.ops_manager %> tile Dashboard.
 
 1. Find the service you want to make available in the left hand navigation under
