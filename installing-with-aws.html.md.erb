@@ -11,28 +11,12 @@ This topic describes how to install and configure <%= vars.product_full %> (<%= 
 
 Before you install <%= vars.product_short %>, you must have/do:
 
-* **Cloud Foundry running on AWS**:
 
-    (Q1: Are you saying you support open source CF?
-Or do customers have to have Ops Manager (what versions?) and Tanzu Application Service for VMs
-(what versions?)
+* **AWS Account Credentials:**
 
-    "The AWS Brokerpak services are provisioned with firewall rules that only allow internal connectivity.
-This allows `cf push`ed applications access, while denying any public access."
-
-    Q2: What's the relation between this CF prereq and the firewall rules?
-
-    Q3: Are the brokerpak services branded by AWS? or are these brokerpak services for AWS?
-)
-   See [Link]().
-
-* **AWS Service Credentials:**
-
-    The services (which services?) need to be provisioned in the same AWS account
+    Any services provisioned by CSB must be provisioned by the same AWS account
     that the foundation is running in.
-    To do this, the broker needs the following service principal credentials
-    (Q4: I think this is Azure only term, Is there an AWS equivalent?)
-to manage resources within that account:
+    To do this, the broker needs the following credentials to manage resources within that account:
 
     - Access Key ID
     - Secret Access Key
@@ -41,9 +25,8 @@ to manage resources within that account:
 
 * **IAM Policies:**
 
-    The AWS account represented by the Access Key and Secret needs the following permission policies:
-```json
-{
+    The AWS account needs the following IAM policies:
+```{
         "Version": "2012-10-17",
         "Statement": [
             {
@@ -84,14 +67,28 @@ to manage resources within that account:
                     "dynamodb:DeleteTable",
                     "dynamodb:DescribeTable",
                     "sqs:CreateQueue",
-                    "sqs:DeleteQueue"
+                    "sqs:DeleteQueue",
+                    "ec2:DescribeVpcs",
+                    "ec2:DescribeVpcAttribute",
+                    "ec2:DescribeSubnets",
+                    "ec2:CreateSecurityGroup",
+                    "ec2:DescribeSecurityGroups",
+                    "ec2:DescribeNetworkInterfaces",
+                    "ec2:DeleteSecurityGroup",
+                    "ec2:RevokeSecurityGroupEgress",
+                    "ec2:AuthorizeSecurityGroupIngress",
+                    "rds:CreateDBSubnetGroup",
+                    "rds:DescribeDBSubnetGroups",
+                    "rds:ListTagsForResource",
+                    "rds:DeleteDBSubnetGroup",
+                    "rds:AddTagsToResource",
+                    "ec2:RevokeSecurityGroupIngress",
                 ],
                 "Effect": "Allow",
                 "Resource": "*"
             }
         ]
     }
-```
 
 ## <a id="install"></a> Install <%= vars.product_short %>
 
