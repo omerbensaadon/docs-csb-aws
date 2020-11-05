@@ -9,8 +9,7 @@ This topic describes how to install and configure <%= vars.product_full %> (<%= 
 
 ## <a id="prereq"></a> Prerequisite for Installing <%= vars.product_short %>
 
-Before you install <%= vars.product_short %>, you must have/do:
-
+Before you install <%= vars.product_short %>, you must have:
 
 * **AWS Account Credentials:**
 
@@ -21,12 +20,12 @@ Before you install <%= vars.product_short %>, you must have/do:
     - Access Key ID
     - Secret Access Key
 
-    See [Link]().
-
 * **IAM Policies:**
 
     The AWS account needs the following IAM policies:
-```{
+
+    ```json
+    {
         "Version": "2012-10-17",
         "Statement": [
             {
@@ -89,6 +88,7 @@ Before you install <%= vars.product_short %>, you must have/do:
             }
         ]
     }
+    ```
 
 ## <a id="install"></a> Install <%= vars.product_short %>
 
