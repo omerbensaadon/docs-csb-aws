@@ -42,18 +42,13 @@ However, the outline of the process is:
 
 ##<a id="prereq"></a> Prerequisite
 
-VVVVVV
 Before you can subsume a PostgresQL instance,
 you must have the admin password for the database.
-This password cannot be automatically discovered.
-It was probably set when the server was created.
+Unfortunately, if you do not have the original password for the PostgresQL Database,
+you will need to reset it in order to subsume the database. 
 
-The database username _is_ automatically discovered,
-so ensure you use the password that matches the database user that was specified during setup.
-See [Broker Config](https://docs.pivotal.io/partners/azure-sb/installing.html#broker-config),
-in _Installing and Configuring Microsoft Azure Service Broker_.
-^^^^^
-NEEDS CHANGE
+[Find instructions on how to reset the password for your PostgreSQL database on the AWS website](https://aws.amazon.com/premiumsupport/knowledge-center/reset-master-user-password-rds/).
+
 
 
 ## <a id='subsume'></a> Subsume a VMware Tanzu Service Broker for AWS PostgresQL Instance
@@ -105,12 +100,8 @@ Upgrades are not supported by this broker.
     * `NEW-SERVICE-INSTANCE` is a name you choose for the new service instance
        that <%= vars.product_short %> creates to replace the MSAB service instance.
     
-
-       VVVFIX
     * `ADMIN-PASSWORD` is the admin password for the database.
        See [Prerequisite](#prereq) above.
-       ^^^FIX
-    
 
     * `AWS-RESOURCE-ID` is found in the output of Step 1 above.
 
