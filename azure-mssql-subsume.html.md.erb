@@ -1,47 +1,49 @@
 ---
-title: Subsuming a Microsoft Azure Service Broker MSSQL Database Instance
-owner: Cloud Service Broker
+title: Subsuming a Amazon RDS for PostgreSQL Instance
+owner: Cloud Service Broker for AWS
 ---
 
 <strong><%= modified_date %></strong>
-
-This topic describes moving an MSSQL database instance
-from the Microsoft Azure Service Broker for VMware Tanzu tile
-to the <%= vars.product_short %> on Azure tile.
+      
+      
+This topic describes moving an Amazon RDS for PostgreSQL Instance
+from the VMware Tanzu Service Broker for AWS tile
+to the <%= vars.product_short %> on AWS tile.
 
 This process of moving control of an instance from one broker tile
 to another is called _subsuming_ the instance.
 
-## <a id='about'></a> About Subsuming MSSQL Database Instance
+## <a id='about'></a> About Subsuming Amazon RDS for PostgreSQL Instance
 
-Because the Microsoft Azure Service (MAS) Broker for VMware Tanzu tile
-is going out of support, it is important to move MSSQL database instances that
-were created by the MAS Broker over to the <%= vars.product_short %>.
+Because the VMware Tanzu Service Broker for AWS (hereafter: "the legacy broker") tile
+is going out of support, it is important to move PostgresQL instances that
+were created by the legacy Broker over to the <%= vars.product_short %> for AWS.
 
-Subsuming the instance allows you to move the database from the control of one broker
+Subsuming the instance allows you to move the PostgresQL instance from the control of one broker
 to the control of another without migrating the data.
 
-After the subsuming process, you can manage the instance and the associated MSSQL database
-just like any other service instance.
+**After the subsuming process, you can manage the instance and the associated PostgresQL instance
+just like any other service instance.**
 
-For general information about the Microsoft Azure Service Broker for VMware Tanzu tile,
-see [Azure Service Broker](https://docs.pivotal.io/partners/azure-sb/index.html).
+For general information about the VMware Tanzu Service Broker for AWS tile,
+see [VMware Tanzu Service Broker for AWS](https://docs.pivotal.io/aws-services/index.html).
 
 ## <a id='process'></a> Overview of the Process
 
 Detailed steps for subsuming are given below.
 However, the outline of the process is:
 
-+ Create a new Cloud Service-brokered instance,
-  importing information about the MSSQL database.
-+ Unbind apps from the old MAS-brokered instance.
++ Create a new Cloud Service-brokered instance
++ Import information about the PostgresQL instance using the "subsume" plan in CloudFoundry Marketplace (`cf m`).
++ Unbind apps from the legacy broker's instance.
 + Bind apps to the new Cloud Service-brokered instance.
-+ Purge the connections between the old MAS-brokered instance and the MSSQL database.
-
++ Purge the connections between the legacy-brokered instance and the PostgresQL instance.
++ Restage any applications which were connected to the legacy PostgresQL instance.
 
 ##<a id="prereq"></a> Prerequisite
 
-Before you can subsume an MSSQL database instance,
+VVVVVV
+Before you can subsume a PostgresQL instance,
 you must have the admin password for the database.
 This password cannot be automatically discovered.
 It was probably set when the server was created.
@@ -50,100 +52,92 @@ The database username _is_ automatically discovered,
 so ensure you use the password that matches the database user that was specified during setup.
 See [Broker Config](https://docs.pivotal.io/partners/azure-sb/installing.html#broker-config),
 in _Installing and Configuring Microsoft Azure Service Broker_.
+^^^^^
+NEEDS CHANGE
 
-## <a id='subsume'></a> Subsume a Microsoft Azure Service Broker MSSQL Database Instance
 
-To subsume control of an existing MAS-brokered MSSQL database instance to
+## <a id='subsume'></a> Subsume a VMware Tanzu Service Broker for AWS PostgresQL Instance
+
+To subsume control of an existing legacy PostgresQL instance to
 the <%= vars.product_short %>:
 
-1. Get the MAS-brokered database instance details by running:
+1. Get the legacy PostgresQL instance's details by running:
 
     ```
-    cf service MASB-SERVICE-INSTANCE
+    cf service LEGACY-SERVICE-INSTANCE
     ```
 
-    Where is `MASB-SERVICE-INSTANCE` is the name of the service instance,
-    the MAS-brokered database instance.
+    Where is `LEGACY-SERVICE-INSTANCE` is the name of the PostgresQL instance which you hope to transfer control of to <%= vars.product_short %>
 
-    For example:
+    An example output has been provided below:
 
-    <pre class="terminal">$ cf service masb-instance
-    Showing info of service <masb instance> in org ...
+    <pre class="terminal">$ cf service LEGACY-SERVICE-INSTANCE
+name:            LEGACY-SERVICE-INSTANCE
+service:          aws-rds-PostgresQL
+tags:             
+plan:             basic
+description:      Create and manage Amazon RDS PostgreSQL deployments
+documentation:    https://aws.amazon.com/rds/postgresql/
+dashboard:        
+service broker:   aws-services-broker
 
-    name:            masb-instance
-    service:         azure-sqldb
-    tags:
-    plan:            basic
-    description:     Azure SQL Database Service
-    documentation:
-    dashboard:
+Showing status of last operation from service aws-PostgresQL-legacy...
 
-    Showing status of last operation from service masb-instance...
+status:    create succeeded
+message:   Instance identifier(s) : [e7c0ac8a-0416-11eb-ae0e-3bbe060ffff9]
+started:   2020-09-15T21:30:41Z
+updated:   2020-09-15T21:34:53Z
 
-    status:    create succeeded
-    message:   Created logical database database-name on logical server server-name.
-    started:   2020-08-20T21:06:57Z
-    updated:   2020-08-20T21:08:04Z
+There are no bound apps for this service.
+
+Upgrades are not supported by this broker.
     </pre>
 
 
-2. Get the Azure resource ID for the database by running the following on the Azure CLI:
+2. Create a new PostgresQL service instance using <%= vars.product_short %>  and
+   import the existing legacy-provisioned resource by choosing the "subsume" plan and including the metadata as shown:
 
     ```
-    az sql db show  --name DATABASE-NAME --server SERVER-NAME \
-    --resource-group SERVER-RESOURCE-GROUP --query id -o tsv
-    ```
-
-    Where:
-    * `DATABASE-NAME` and `SERVER-NAME` are the logical names in the `message` line of the output in the step above.
-    * `SERVER-RESOURCE-GROUP` is the **Default Resource Group** in the Default Parameters Config pane
-      of the Azure Service Broker tile.
-      See [Default Parameters Config](https://docs.pivotal.io/partners/azure-sb/installing.html#defaultparameters-config)
-      in _Installing and Configuring Microsoft Azure Service Broker_.
-
-    For example:
-
-    <pre class="terminal">
-    $ az sql db show  --name database-name --server server-name \
-      --resource-group azure-service-broker --query id -o tsv
-    </pre>
-
-3. Create a new MSSQL service instance using <%= vars.product_short %>  and
-   import the existing MSSQL resource by including the metadata as shown:
-
-    ```
-    cf create-service csb-masb-mssql-db-subsume current NEW-SERVICE-INSTANCE -c '{"admin_password":"SERVER-ADMIN-PASSWORD", "azure_db_id", "AZURE-RESOURCE-ID"}'
+    cf create-service csb-aws-postgresql subsume NEW-SERVICE-INSTANCE -c '{{"aws_db_id":"AWS-RESOURCE-ID","admin_password":"ADMIN-PASSWORD"}}'
     ```
 
     Where:
     * `NEW-SERVICE-INSTANCE` is a name you choose for the new service instance
        that <%= vars.product_short %> creates to replace the MSAB service instance.
-    * `SERVER-ADMIN-PASSWORD` is the admin password for the database.
+    
+
+       VVVFIX
+    * `ADMIN-PASSWORD` is the admin password for the database.
        See [Prerequisite](#prereq) above.
-    * `AZURE-RESOURCE-ID` is found in the output of step 2 above.
+       ^^^FIX
+    
+
+    * `AWS-RESOURCE-ID` is found in the output of Step 1 above.
 
 
     For example:
 
     <pre class="terminal">
-$ cf create-service csb-masb-mssql-db-subsume current secondary-db -c \
- '{"admin_password":"PA55W0RD","azure_db_id":"/subscriptions/e7c0ac8a-0416-11eb-ae0e-3bbe060ffff9/resourceGroups/broker/providers/Microsoft.Sql/servers/masb-test-server/databases/test-db"}'
+$ cf create-service csb-aws-postgresql subsume NEW-SERVICE-INSTANCE -c \
+ '{"aws_db_id":"e7c0ac8a-0416-11eb-ae0e-3bbe060ffff9","admin_password":"PA55W0RD"}'
     </pre>
 
 
-4. Disconnect the app from the MASB service binding by running:
+3. Disconnect the app from the legacy service binding by running:
 
     ```
-    cf unbind-service APP-NAME MASB-SERVICE-INSTANCE
+    cf unbind-service APP-NAME LEGACY-SERVICE-INSTANCE
     ```
 
     Where:
-    * `APP-NAME` is the app using the database.
-    * `MASB-SERVICE-INSTANCE` is the name of the service instance,
-    the MAS-brokered database instance.
+    * `APP-NAME` is the app using the PostgresQL instance.
+    * `LEGACY-SERVICE-INSTANCE` is the name of the service instance,
+    the VMware Tanzu Service Broker for AWS-brokered PostgresQL instance.
+
+    For example:
 
     <pre class="terminal">
-$ cf unbind-service my-app masb-instance
+$ cf unbind-service my-app old-instance
     </pre>
 
 5. Bind the app to the new service instance by running:
@@ -153,20 +147,27 @@ $ cf unbind-service my-app masb-instance
     ```
 
     Where `NEW-SERVICE-INSTANCE` is the name of the <%= vars.product_short %> service instance
-    that you created in step 3 above.
+    that you created in Step 2 above.
 
     For example:
 
-    <pre class="terminal">$cf bind-service my-app secondary-db </pre>
+    <pre class="terminal">$cf bind-service my-app my-PostgresQL-instance </pre>
 
     Because Cloud Service Broker creates new credentials at bind time,
     this creates new binding credentials for the app.
 
-1. Remove record of the old MAS-brokered database instance and any child objects
+6. Restage the app:
+
+    ```
+    cf restage APP-NAME
+    ```
+
+
+1. Remove record of the old VMware Tanzu Service Broker for AWS-brokered PostgresQL instance and any child objects
    from Cloud Foundry by running:
 
     ```
-    cf purge-service-instance MASB-SERVICE-INSTANCE
+    cf purge-service-instance LEGACY-SERVICE-INSTANCE
     ```
 
     For example:
@@ -174,11 +175,11 @@ $ cf unbind-service my-app masb-instance
     <pre class="terminal">$ cf purge-service-instance masb-instance</pre>
 
     <p class="note warning"><strong> Warning:</strong> Do not run <code>cf delete-service</code>
-    because then the Microsoft Azure Service Broker deletes the Azure MSSQL resource, that is, the database.
+    because then the VMware Tanzu Service Broker for AWS deletes the AWS PostgresQL resource, that is, the database.
 </p>
 
 ## <a id="next-steps"></a> Next Steps
 
-When all MAS-brokered service instances for all apps have been moved to Cloud Service-brokered instances,
-you can uninstall the Microsoft Azure Service Broker for VMware Tanzu tile
+When all VMware Tanzu Service Broker for AWS-brokered service instances for all apps have been moved to Cloud Service-brokered instances,
+you can uninstall the VMware Tanzu Service Broker for AWS-brokered tile
 from <%= vars.ops_manager %>.
