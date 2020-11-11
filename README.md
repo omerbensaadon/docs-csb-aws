@@ -1,4 +1,4 @@
-# docs-cloud-service-broker
+# docs-csb-aws
 
 ## Branches in this Content Repo
 
@@ -12,15 +12,13 @@ Then, if necessary, immediately cherry-pick/copy any changes that you want to pu
 
 | Branch Name| Use for… |
 |------------| ---------|
-| master     | 1.n Use for staging doc for the next release. (staged here: http://docs-pcf-staging.cfapps.io/cloud-service-broker/1-n/) |
-| 1.0     | 1.0 (live: http://docs.pivotal.io/cloud-service-broker/1-0/) |
-| GCP-AWS-docs | This branch contains the installing-with-gcp.html.md.erb and installing-with-aws.html.md.erb topics. We are keeping these topics for when CSB supports these IaaSes |
+| master     | 1.n Use for staging doc for the next release. (staged here: http://docs-pcf-staging.cfapps.io/csb-aws/1-n/) |
 
 
 
 ## Book Repo
 
-The book repo associated with this content is [pivotal-cf/docs-book-csb](https://github.com/pivotal-cf/docs-book-csb).
+The book repo associated with this content is [pivotal-cf/docs-book-csb-aws](https://github.com/pivotal-cf/docs-book-csb-aws).
 
 ### Staging Environment
 
@@ -28,7 +26,7 @@ When a commit is made into any of the above branches, the documentation is deplo
 [this concourse build][docs-staging-deploy]. All the supported versions will be accessible on the
 [staging website][docs-staging].
 
-[docs-staging]:        http://docs-pcf-staging.cfapps.io/cloud-service-broker/
+[docs-staging]:        http://docs-pcf-staging.cfapps.io/csb-aws/
 
 
 ### Making Your Documentation Changes Live
@@ -57,9 +55,9 @@ Because **master** is the latest and greatest documentation, the process would b
 for the version that **master** was targeting during that time.
 A corresponding section in **config.yml** in the [docs-book-pcfservices][docs-book-pcfservices] repository would also need to be made.
 
-After this point, **master** will then be the target for the next version of the Cloud Service Broker product.
+After this point, **master** will then be the target for the next version of the Cloud Service Broker for AWS product.
 
 
 ## Style Guide
 
-This is a word list for terminology and word usage specific to the Cloud Service Broker for docs.
+This is a word list for terminology and word usage specific to the Cloud Service Broker for AWS for docs.
