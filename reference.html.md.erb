@@ -5,8 +5,8 @@ owner: Cloud Service Broker
 
 <strong><%= modified_date %></strong>
 
-This topic provides reference information about the plans and configuration
-parameters used for configuring service instances.
+This topic provides reference information about the plans and configuration parameters used for
+configuring service instances.
 
 See the section below for your desired service:
 
@@ -16,10 +16,11 @@ See the section below for your desired service:
 - [Amazon ElastiCache for Redis](#aws-elasticache)
 
 
-## <a id="aws-bucket"></a> AWS S3 Bucket
+## <a id="aws-bucket"></a> Amazon S3 Bucket
 
 This section applies to the `csb-aws-s3-bucket` service.
 This section lists default plans and configuration options for Amazon S3 Buckets on AWS.
+
 
 ### <a id="aws-bucket-plans"></a> Plans
 
@@ -28,19 +29,54 @@ The table below lists the plans for the csb-azure-mssql service:
 | Plan       | Description |
 |------------|------|
 | private       | a private S3 bucket|
-| public-read      | a publicly readable S3 bucket    | 
+| public-read      | a publicly readable S3 bucket|
 
 
 ### <a id="aws-bucket-plans-config"></a> Plan Configuration Parameters
 
-The table below lists the plan parameters you can configure within the tile in OpsMan:
+The table below lists the plan parameters you can configure within the tile in
+<%= vars.ops_manager %>:
 
-| Parameter | Type | Description | Default |
-|-----------|------|------|---------|
-| bucket_name| string | Name of bucket to create | csb-*instance_id* |
-| region  | string | [AWS region](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions) to deploy service  | us-west-2 |
-| aws_access_key_id | string | AWS Access Key to use for instance | config file value `aws.access_key_id` |
-| aws_secret_access_key | string | Corresponding secret for the AWS Access Key to use for instance | config file value `aws.secret_access_key` |
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>bucket_name</td>
+      <td>string</td>
+      <td>Name of bucket to create</td>
+      <td>csb-INSTANCE-ID</td>
+    </tr>
+    <tr>
+      <td>region</td>
+      <td>string</td>
+      <td>
+        AWS region to deploy service in.
+        For more information about available regions, see the
+        <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions">AWS documentation</a>.</td>
+      <td>us-west-2</td>
+    </tr>
+    <tr>
+      <td>aws_access_key_id</td>
+      <td>string</td>
+      <td>AWS Access Key to use for an instance</td>
+      <td>The config file value <code>aws.access_key_id</code></td>
+    </tr>
+    <tr>
+      <td>aws_secret_access_key</td>
+      <td>string</td>
+      <td>Corresponding secret for the AWS Access Key to use for an instance</td>
+      <td>The config file value <code>aws.secret_access_key</code></td>
+    </tr>
+  </tbody>
+</table>
+
 
 #### <a id="aws-bucket-binding"></a> Binding Credentials
 
@@ -48,33 +84,36 @@ The binding credentials for the S3 bucket have the following shape:
 
 ```json
 {
-    "arn" : "bucket arn",
-    "bucket_domain_name" : "bucket FQDN",
-    "region" : "bucket region",
-    "bucket_name" : "bucket name",
-    "access_key_id" : "access key for bucket",
-    "secret_access_key" : "secret key for bucket",
+    "arn" : "BUCKET-ARN",
+    "bucket_domain_name" : "BUCKET-FQDN",
+    "region" : "BUCKET-REGION",
+    "bucket_name" : "BUCKET-NAME",
+    "access_key_id" : "ACCESS-KEY-FOR-BUCKET",
+    "secret_access_key" : "SECRET-KEY-FOR-BUCKET",
 }
 ```
 
+
 ## <a id="aws-mysql"></a> Amazon RDS for MySQL
+
 This section applies to the `aws-rds-mysql` service.
 This section lists default plans and configuration options for Amazon RDS for MySQL on AWS.
 
 
-### <a id="aws-mysql-plans"></a> Plan Configuration Parameters
-These are the default plans and configuration options for Amazon RDS for PostgreSQL.
+### <a id="aws-mysql-plans"></a> Plans
 
+The default plans and configuration options for Amazon RDS for MySQL are below:
 
 | Plan | Instance Class | Version | CPUs | Memory Size | Disk Size |
 |------|---------|---------|------|-------------|-----------|
-|small | db.t2.medium | 5.7     | 2    | min 4GB     | 5GB       |
-|medium| db.m4.xlarge | 5.7      | 4    | min 8GB     | 10GB      |
-|large | db.m4.2xlarge | 5.7      | 8    | min 16GB    | 20GB      |
+|small | db.t2.medium | 5.7     | 2    | minimum 4&nbsp;GB     | 5&nbsp;GB       |
+|medium| db.m4.xlarge | 5.7      | 4    | minimum 8&nbsp;GB     | 10&nbsp;GB      |
+|large | db.m4.2xlarge | 5.7      | 8    | minimum 16&nbsp;GB    | 20&nbsp;GB      |
 
-#### Core to instance class mapping
-CPU size mapped into [AWS DB instance types](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html) as follows:
 
+#### Core to Instance Class Mapping
+
+The CPU size is mapped to AWS database instance types as follows:
 
 | CPUs | Instance class |
 |-------|---------------|
@@ -86,21 +125,88 @@ CPU size mapped into [AWS DB instance types](https://docs.aws.amazon.com/AmazonR
 | 32    | db.m5.8xlarge |
 | 64    | db.m5.16xlarge|
 
+For more information about database instance classes, see the
+[AWS documentation](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html).
+
 
 ### <a id="aws-mysql-plans-config"></a> Plan Configuration Parameters
-The table below lists the plan parameters you can configure within the tile in OpsMan:
 
+The table below lists the plan parameters you can configure within the tile in
+<%= vars.ops_manager %>:
 
-| Parameter | Type | Description | Default |
-|-----------|------|------|---------|
- instance_name | string | name of AWS instance to create | csb-mysql-*instance_id* |
-| region  | string | [AWS region](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions) to deploy service  | us-west-2 |
-| vpc_id | string | The VPC to connect the instance to | the default vpc |
-| aws_access_key_id | string | ID of Azure tenant for instance | config file value `aws.access_key_id` |
-| aws_secret_access_key | string | ID of Azure subscription for instance | config file value `aws.secret_access_key` |
-| instance_class | string | explicit [instance class](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html) *overrides* `cores` conversion into instance class per table above | | 
-| multi-az | boolean | If `true`, create multi-az ([HA](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZ.html)) instance | `false` | 
-| publicly_accessible | boolean | If `true`, make instance available to public connections | `false ` |
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>instance_name</td>
+      <td>string</td>
+      <td>Name of AWS instance to create</td>
+      <td>csb-mysql-INSTANCE-ID</td>
+    </tr>
+    <tr>
+      <td>region</td>
+      <td>string</td>
+      <td>
+        The AWS region in which to deploy the service.
+        For more information about available regions, see the
+        <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions">AWS documentation</a>.
+      </td>
+      <td>us-west-2</td>
+    </tr>
+    <tr>
+      <td>vpc_id</td>
+      <td>string</td>
+      <td>The VPC to connect the instance to</td>
+      <td>The default VPC</td>
+    </tr>
+    <tr>
+      <td>aws_access_key_id</td>
+      <td>string</td>
+      <td>ID of Azure tenant for the instance</td>
+      <td>config file value <code>aws.access_key_id</code></td>
+    </tr>
+    <tr>
+      <td>aws_secret_access_key</td>
+      <td>string</td>
+      <td>ID of Azure subscription for the instance</td>
+      <td>config file value <code>aws.secret_access_key</code></td>
+    </tr>
+    <tr>
+      <td>instance_class</td>
+      <td>string</td>
+      <td>explicit instance class overrides <code>cores</code> conversion into the instance
+        class per the table above.
+        For more information about database instance classes, see the
+        <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html">AWS documentation</a>.
+      </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>multi-az</td>
+      <td>boolean</td>
+      <td>If <code>true</code>, create a Multi-AZ (HA) instance.
+        For more information about Multi-AZ deployment, see the
+        <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZ.html">AWS documentation</a>.
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+    </tr>
+    <tr>
+      <td>publicly_accessible</td>
+      <td>boolean</td>
+      <td>If <code>true</code>, make instance available to public connections.</td>
+      <td><code>false</code></td>
+    </tr>
+  </tbody>
+</table>
 
 
 #### <a id="aws-mysql-binding"></a> Binding Credentials
@@ -109,36 +215,37 @@ The binding credentials for MySQL have the following shape:
 
 ```json
 {
-    "name" : "database name",
-    "hostname" : "database server host",
-    "port" : "database server port",
-    "username" : "authentication user name",
-    "password" : "authentication password",
-    "uri" : "database connection URI",
-    "jdbcUrl" : "jdbc format connection URI"
+    "name" : "DATABASE-NAME",
+    "hostname" : "DATABASE-SERVER-HOST",
+    "port" : "DATABASE-SERVER-PORT",
+    "username" : "AUTHENTICATION-USERNAME",
+    "password" : "AUTHENTICATION-PASSWORD",
+    "uri" : "DATABASE-CONNECTION-URI",
+    "jdbcUrl" : "JDBC-FORMAT-CONNECTION-URI"
 }
 ```
 
 
-
 ## <a id="aws-postgres"></a> Amazon RDS for PostgreSQL
+
 This section applies to the `aws-rds-postgres` service.
-This section lists default plans and configuration options for Amazon RDS for Postgres on AWS.
+This section lists default plans and configuration options for Amazon RDS for PostgreSQL on AWS.
 
-### <a id="aws-postgres-plans"></a> Plan Configuration Parameters
-These are the default plans and configuration options for Amazon RDS for PostgreSQL.
 
+### <a id="aws-postgres-plans"></a> Plans
+
+The default plans and configuration options for Amazon RDS for PostgreSQL are below:
 
 | Plan | Instance Class | Version | CPUs | Memory Size | Disk Size |
 |------|---------|---------|------|-------------|-----------|
-|small | db.t2.medium | 11      | 2    | min 4GB     | 5GB       |
-|medium| db.m4.xlarge | 11      | 4    | min 8GB     | 10GB      |
-|large | db.m4.2xlarge | 11      | 8    | min 16GB    | 20GB      |
+|small | db.t2.medium | 11      | 2    | minimum 4&nbsp;GB     | 5&nbsp;GB       |
+|medium| db.m4.xlarge | 11      | 4    | minimum 8&nbsp;GB     | 10&nbsp;GB      |
+|large | db.m4.2xlarge | 11      | 8    | minimum 16&nbsp;GB    | 20&nbsp;GB      |
 
 
-#### Core to instance class mapping
-CPU size mapped into [AWS DB instance types](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html) as follows:
+#### Core to Instance Class Mapping
 
+The CPU size is mapped to AWS database instance types as follows:
 
 | CPUs | Instance class |
 |-------|---------------|
@@ -150,21 +257,83 @@ CPU size mapped into [AWS DB instance types](https://docs.aws.amazon.com/AmazonR
 | 32    | db.m5.8xlarge |
 | 64    | db.m5.16xlarge|
 
+For more information about database instance classes, see the
+[AWS documentation](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html).
+
 
 ### <a id="aws-postgres-plans-config"></a> Plan Configuration Parameters
 
-The table below lists the plan parameters you can configure within the tile in OpsMan:
+The table below lists the plan parameters you can configure within the tile in
+<%= vars.ops_manager %>:
 
-| Parameter | Type | Description | Default |
-|-----------|------|------|---------|
-| instance_name | string | name of AWS instance to create | csb-mysql-*instance_id* |
-| region  | string | [AWS region](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions) to deploy service  | us-west-2 |
-| vpc_id | string | The VPC to connect the instance to | the default vpc |
-| aws_access_key_id | string | ID of Azure tenant for instance | config file value `aws.access_key_id` |
-| aws_secret_access_key | string | ID of Azure subscription for instance | config file value `aws.secret_access_key` |
-| instance_class | string | explicit [instance class](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html) *overrides* `cores` conversion into instance class per table above | | 
-| multi-az | boolean | If `true`, create multi-az ([HA](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZ.html)) instance | `false` | 
-| publicly_accessible | boolean | If `true`, make instance available to public connections | `false ` |
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>instance_name</td>
+      <td>string</td>
+      <td>Name of the AWS instance to create</td>
+      <td>csb-mysql-INSTANCE-ID</td>
+    </tr>
+    <tr>
+      <td>region</td>
+      <td>string</td>
+      <td>
+        The AWS region in which to deploy a service. For more information about available regions,
+        see the <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions">AWS documentation</a>.
+      </td>
+      <td>us-west-2</td>
+    </tr>
+    <tr>
+      <td>vpc_id</td>
+      <td>string</td>
+      <td>The VPC to connect the instance to</td>
+      <td>The default VPC</td>
+    </tr>
+    <tr>
+      <td>aws_access_key_id</td>
+      <td>string</td>
+      <td>ID of Azure tenant for the instance</td>
+      <td>The config file value <code>aws.access_key_id</code></td>
+    </tr>
+    <tr>
+      <td>aws_secret_access_key</td>
+      <td>string</td>
+      <td>ID of Azure subscription for the instance</td>
+      <td>The config file value <code>aws.secret_access_key</code></td>
+    </tr>
+    <tr>
+      <td>instance_class</td>
+      <td>string</td>
+      <td>explicit instance class <em>overrides</em> <code>cores</code> conversion into instance
+        class per table above. <%# What does this mean? The grammar is too abridged to parse this. %>
+        For more information about database instance classes, see the
+        <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html">AWS documentation</a>.</td>
+      <td></td> <%# n/a? %>
+    </tr>
+    <tr>
+      <td>multi-az</td>
+      <td>boolean</td>
+      <td>If <code>true</code>, create a Multi-AZ (HA) instance.
+      For more information about Multi-AZ deployments, see the
+      <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZ.html">AWS documentation</a>.</td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td>publicly_accessible</td>
+      <td>boolean</td>
+      <td>If <code>true</code>, make instance available to public connections.</td>
+      <td><code>false</code></td>
+    </tr>
+  </tbody>
+</table>
 
 
 #### <a id="aws-postgres-binding"></a> Binding Credentials
@@ -173,56 +342,126 @@ The binding credentials for PostgreSQL have the following shape:
 
 ```json
 {
-    "name" : "database name",
-    "hostname" : "database server host",
-    "port" : "database server port",
-    "username" : "authentication user name",
-    "password" : "authentication password",
-    "uri" : "database connection URI",
-    "jdbcUrl" : "jdbc format connection URI"
+    "name" : "DATABASE-NAME",
+    "hostname" : "DATABASE-SERVER-HOST",
+    "port" : "DATABASE-SERVER-PORT",
+    "username" : "AUTHENTICATION-USERNAME",
+    "password" : "AUTHENTICATION-PASSWORD",
+    "uri" : "DATABASE-CONNECTION-URI",
+    "jdbcUrl" : "JDBC-FORMAT-CONNECTION-URI"
 }
 ```
 
 
 ## <a id="aws-elasticache"></a> Amazon ElastiCache for Redis
+
 This section applies to the `csb-aws-redis` service.
 This section lists default plans and configuration options for Amazon ElastiCache for Redis.
 
 
 ### <a id="aws-elasticache-plans"></a> Plans
 
+
 #### Basic Plans:
-| Plan | Cache Size |  AWS Cache Node Type |  HA | 
-|------|------------|---------------------|---- |
-| small | min 1GB | cache.t2.small | no |
-| medium |  min 4GB |cache.m5.large | no |
-| large | min 16GB |cache.r4.xlarge | no |
 
-
+| Plan | Cache Size | AWS Cache Node Type | HA |
+|------|------------|---------------------|-----|
+| small | minimum 1&nbsp;GB | cache.t2.small | no |
+| medium | minimum 4&nbsp;GB |cache.m5.large | no |
+| large | minimum 16&nbsp;GB |cache.r4.xlarge | no |
 
 
 #### High Availability Plans:
-| Plan | Cache Size |  AWS Cache Node Type |  HA | 
-|------|------------|---------------------|---- |
-| ha-small | min 1GB | cache.t2.small | yes |
-| ha-medium |  min 4GB |cache.m5.large | yes |
-| ha-large | min 16GB |cache.r4.xlarge | yes |
+
+| Plan | Cache Size | AWS Cache Node Type | HA |
+|------|------------|---------------------|-----|
+| ha-small | minimum 1&nbsp;GB | cache.t2.small | yes |
+| ha-medium | minimum 4&nbsp;GB |cache.m5.large | yes |
+| ha-large | minimum 16&nbsp;GB |cache.r4.xlarge | yes |
 
 
 #### <a id="aws-redis-plans-config"></a> Binding Credentials
 
-The following parameters (as well as those above) may be configured at service provisioning time (`cf create-service csb-aws-redis ... -c '{...}'`)
+You can configure the following parameters, as well as those above, at service provisioning time by
+running:
 
-| Parameter | Type | Description | Default |
-|-----------|------|------|---------|
-| instance_name | string | name of Azure instance to create | csb-redis-*instance_id* |
-| region  | string | AWS region to deploy service instance | us-west-2 |
-| vpc_id | string | The VPC to connect the instance to | the default vpc |
-| aws_access_key_id | string | ID of Azure tenant for instance | config file value `aws.access_key_id` |
-| aws_secret_access_key | string | ID of Azure subscription for instance | config file value `aws.secret_access_key` |
-| redis_version | string | Redis version to provision (`"2.6"`, `"2.8"`, `"3.2"`, `"4.0"`, `"5.0"`) | `"5.0"`|
-| cache_size | integer | Size in GB for cache: 1,2,4,8,16,32,64,128,256 | per plan |
-| node_type | string | explicit [node type](https://aws.amazon.com/elasticache/pricing/) *overrides* `cache_size` conversion into node type per table above | | 
+```
+cf create-service csb-aws-redis ... -c '{...}'
+```
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>instance_name</td>
+      <td>string</td>
+      <td>Name of the Azure instance to create</td>
+      <td>csb-redis-INSTANCE-ID</td>
+    </tr>
+    <tr>
+      <td>region</td>
+      <td>string</td>
+      <td>AWS region to deploy service instance in</td>
+      <td>us-west-2</td>
+    </tr>
+    <tr>
+      <td>vpc_id</td>
+      <td>string</td>
+      <td>The VPC to connect the instance to</td>
+      <td>The default VPC</td>
+    </tr>
+    <tr>
+      <td>aws_access_key_id</td>
+      <td>string</td>
+      <td>The ID of Azure tenant for the instance</td>
+      <td>config file value
+        <code>aws.access_key_id</code>
+      </td>
+    </tr>
+    <tr>
+      <td>aws_secret_access_key</td>
+      <td>string</td>
+      <td>The ID of the Azure subscription for the instance</td>
+      <td>config file value
+        <code>aws.secret_access_key</code>
+      </td>
+    </tr>
+    <tr>
+      <td>redis_version</td>
+      <td>string</td>
+      <td>Redis version to provision (<code>&quot;2.6&quot;</code>,
+        <code>&quot;2.8&quot;</code>,
+        <code>&quot;3.2&quot;</code>,
+        <code>&quot;4.0&quot;</code>,
+        <code>&quot;5.0&quot;</code>)</td>
+      <td>
+        <code>&quot;5.0&quot;</code>
+      </td>
+    </tr>
+    <tr>
+      <td>cache_size</td>
+      <td>integer</td>
+      <td>Size in GB for cache: 1, 2, 4, 8, 16, 32, 64, 128, 256</td>
+      <td>per plan</td>
+    </tr>
+    <tr>
+      <td>node_type</td>
+      <td>string</td>
+      <td>explicit <a href="https://aws.amazon.com/elasticache/pricing/">node type</a> overrides
+        <code>cache_size</code> conversion into node type per table above.
+        For more information about node types and pricing, see the
+        <a href="https://aws.amazon.com/elasticache/pricing/">AWS documentation</a>.</td>
+      <td><%# n/a? %></td>
+    </tr>
+  </tbody>
+</table>
 
 
 #### <a id="aws-redis-binding"></a> Binding Credentials
@@ -231,9 +470,9 @@ The binding credentials for Redis have the following shape:
 
 ```json
 {
-    "host" : "redis server hostname",
-    "port" : "redis server port",
-    "password" : "authentication password",
-    "tls_port" : "redis TLS port"
+    "host" : "REDIS-SERVER-HOSTNAME",
+    "port" : "REDIS-SERVER-PORT",
+    "password" : "AUTHENTICATION-PASSWORD",
+    "tls_port" : "REDIS-TLS-PORT"
 }
 ```
