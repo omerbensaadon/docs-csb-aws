@@ -185,11 +185,55 @@ The binding credentials for PostgreSQL have the following shape:
 
 
 ## <a id="aws-elasticache"></a> Amazon ElastiCache for Redis
-This section applies to the `csb-aws-redis-basic` and `csb-aws-redis-ha` service.
+This section applies to the `csb-aws-redis` service.
 This section lists default plans and configuration options for Amazon ElastiCache for Redis.
 
 
 ### <a id="aws-elasticache-plans"></a> Plans
 
+#### Basic Plans:
+| Plan | Cache Size |  AWS Cache Node Type |  HA | 
+|------|------------|---------------------|---- |
+| small | min 1GB | cache.t2.small | no |
+| medium |  min 4GB |cache.m5.large | no |
+| large | min 16GB |cache.r4.xlarge | no |
 
 
+
+
+#### High Availability Plans:
+| Plan | Cache Size |  AWS Cache Node Type |  HA | 
+|------|------------|---------------------|---- |
+| ha-small | min 1GB | cache.t2.small | yes |
+| ha-medium |  min 4GB |cache.m5.large | yes |
+| ha-large | min 16GB |cache.r4.xlarge | yes |
+
+
+#### <a id="aws-redis-plans-config"></a> Binding Credentials
+
+The following parameters (as well as those above) may be configured at service provisioning time (`cf create-service csb-aws-redis ... -c '{...}'`)
+
+| Parameter | Type | Description | Default |
+|-----------|------|------|---------|
+| instance_name | string | name of Azure instance to create | csb-redis-*instance_id* |
+| region  | string | AWS region to deploy service instance | us-west-2 |
+| vpc_id | string | The VPC to connect the instance to | the default vpc |
+| aws_access_key_id | string | ID of Azure tenant for instance | config file value `aws.access_key_id` |
+| aws_secret_access_key | string | ID of Azure subscription for instance | config file value `aws.secret_access_key` |
+| redis_version | string | Redis version to provision (`"2.6"`, `"2.8"`, `"3.2"`, `"4.0"`, `"5.0"`) | `"5.0"`|
+| cache_size | integer | Size in GB for cache: 1,2,4,8,16,32,64,128,256 | per plan |
+| node_type | string | explicit [node type](https://aws.amazon.com/elasticache/pricing/) *overrides* `cache_size` conversion into node type per table above | | 
+
+
+#### <a id="aws-redis-binding"></a> Binding Credentials
+
+The binding credentials for Redis have the following shape:
+
+```json
+{
+    "host" : "redis server hostname",
+    "port" : "redis server port",
+    "password" : "authentication password",
+    "tls_port" : "redis TLS port"
+}
+```
