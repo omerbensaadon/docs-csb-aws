@@ -147,14 +147,14 @@ The table below lists the plan parameters you can configure within the tile in
     <tr>
       <td>instance_name</td>
       <td>string</td>
-      <td>Name of AWS instance to create</td>
+      <td>Name of the AWS instance to create</td>
       <td>csb-mysql-INSTANCE-ID</td>
     </tr>
     <tr>
       <td>region</td>
       <td>string</td>
       <td>
-        The AWS region in which to deploy the service.
+        The AWS region to deploy the service in.
         For more information about available regions, see the
         <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions">AWS documentation</a>.
       </td>
@@ -169,20 +169,20 @@ The table below lists the plan parameters you can configure within the tile in
     <tr>
       <td>aws_access_key_id</td>
       <td>string</td>
-      <td>ID of Azure tenant for the instance</td>
+      <td>ID of the Azure tenant for the instance</td>
       <td>config file value <code>aws.access_key_id</code></td>
     </tr>
     <tr>
       <td>aws_secret_access_key</td>
       <td>string</td>
-      <td>ID of Azure subscription for the instance</td>
+      <td>ID of the Azure subscription for the instance</td>
       <td>config file value <code>aws.secret_access_key</code></td>
     </tr>
     <tr>
       <td>instance_class</td>
       <td>string</td>
-      <td>explicit instance class overrides <code>cores</code> conversion into the instance
-        class per the table above.
+      <td>explicit instance class overrides <code>cores</code> conversion into instance class per
+        the table above. <%# What does this mean? The grammar is too abridged to parse this. %>
         For more information about database instance classes, see the
         <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html">AWS documentation</a>.
       </td>
@@ -312,7 +312,7 @@ The table below lists the plan parameters you can configure within the tile in
     <tr>
       <td>instance_class</td>
       <td>string</td>
-      <td>explicit instance class <em>overrides</em> <code>cores</code> conversion into instance
+      <td>explicit instance class overrides <code>cores</code> conversion into instance
         class per table above. <%# What does this mean? The grammar is too abridged to parse this. %>
         For more information about database instance classes, see the
         <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html">AWS documentation</a>.</td>
@@ -361,7 +361,6 @@ This section lists default plans and configuration options for Amazon ElastiCach
 
 ### <a id="aws-elasticache-plans"></a> Plans
 
-
 #### Basic Plans:
 
 | Plan | Cache Size | AWS Cache Node Type | HA |
@@ -386,7 +385,7 @@ You can configure the following parameters, as well as those above, at service p
 running:
 
 ```
-cf create-service csb-aws-redis ... -c '{...}'
+cf create-service csb-aws-redis ... -c '{...}' <%# What are the placeholders? %>
 ```
 
 <table>
@@ -420,7 +419,7 @@ cf create-service csb-aws-redis ... -c '{...}'
     <tr>
       <td>aws_access_key_id</td>
       <td>string</td>
-      <td>The ID of Azure tenant for the instance</td>
+      <td>The ID of the Azure tenant for the instance</td>
       <td>config file value
         <code>aws.access_key_id</code>
       </td>
