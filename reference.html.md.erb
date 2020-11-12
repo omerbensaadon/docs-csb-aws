@@ -100,7 +100,7 @@ This section applies to the `aws-rds-mysql` service.
 This section lists default plans and configuration options for Amazon RDS for MySQL on AWS.
 
 
-### <a id="aws-mysql-plans"></a> Plans
+### <a id="aws-mysql-plans"></a> Plans for MySQL
 
 The default plans and configuration options for Amazon RDS for MySQL are below:
 
@@ -181,12 +181,13 @@ The table below lists the plan parameters you can configure within the tile in
     <tr>
       <td>instance_class</td>
       <td>string</td>
-      <td>explicit instance class overrides <code>cores</code> conversion into instance class per
-        the table above. <%# What does this mean? The grammar is too abridged to parse this. %>
+      <td>Specifying the instance class overrides the cores conversion to instance class that is
+        described in the <strong>Core to Instance Class Mapping</strong> table in the
+        <a href="#aws-mysql-plans">Plans for MySQL</a> section above.
         For more information about database instance classes, see the
         <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html">AWS documentation</a>.
       </td>
-      <td></td>
+      <td><%# n/a? %></td>
     </tr>
     <tr>
       <td>multi-az</td>
@@ -232,7 +233,7 @@ This section applies to the `aws-rds-postgres` service.
 This section lists default plans and configuration options for Amazon RDS for PostgreSQL on AWS.
 
 
-### <a id="aws-postgres-plans"></a> Plans
+### <a id="aws-postgres-plans"></a> Plans for PostgreSQL
 
 The default plans and configuration options for Amazon RDS for PostgreSQL are below:
 
@@ -247,7 +248,7 @@ The default plans and configuration options for Amazon RDS for PostgreSQL are be
 
 The CPU size is mapped to AWS database instance types as follows:
 
-| CPUs | Instance class |
+| CPUs | Instance Class |
 |-------|---------------|
 | 1     | db.m1.medium  |
 | 2     | db.t2.medium  |
@@ -312,11 +313,12 @@ The table below lists the plan parameters you can configure within the tile in
     <tr>
       <td>instance_class</td>
       <td>string</td>
-      <td>explicit instance class overrides <code>cores</code> conversion into instance
-        class per table above. <%# What does this mean? The grammar is too abridged to parse this. %>
+      <td>Specifying the instance class overrides the core conversion to instance class that is
+        described in the <strong>Core to Instance Class Mapping</strong> table in the
+        <a href="#aws-postgres-plans">Plans for PostgreSQL</a> section above.
         For more information about database instance classes, see the
         <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html">AWS documentation</a>.</td>
-      <td></td> <%# n/a? %>
+      <td><%# n/a? %></td>
     </tr>
     <tr>
       <td>multi-az</td>
@@ -359,9 +361,26 @@ This section applies to the `csb-aws-redis` service.
 This section lists default plans and configuration options for Amazon ElastiCache for Redis.
 
 
-### <a id="aws-elasticache-plans"></a> Plans
+### <a id="aws-elasticache-plans"></a> Plans for Amazon ElastiCache
 
-#### Basic Plans:
+Tables for cache sizes and plans are below:
+
+#### Cache Size to AWS Node Type Mapping
+
+| cache_size | node type |
+|------------|-----------|
+| 1   |cache.t2.small |
+| 2   |cache.t3.medium |
+| 4   |cache.m5.large |
+| 8   |cache.m5.xlarge |
+| 16  |cache.r4.xlarge |
+| 32  |cache.r4.2xlarge |
+| 64  |cache.r4.4xlarge |
+| 128 |cache.r4.8xlarge |
+| 256 |cache.r5.12xlarge |
+
+
+#### Basic Plans
 
 | Plan | Cache Size | AWS Cache Node Type | HA |
 |------|------------|---------------------|-----|
@@ -370,7 +389,7 @@ This section lists default plans and configuration options for Amazon ElastiCach
 | large | minimum 16&nbsp;GB |cache.r4.xlarge | no |
 
 
-#### High Availability Plans:
+#### High Availability Plans
 
 | Plan | Cache Size | AWS Cache Node Type | HA |
 |------|------------|---------------------|-----|
@@ -385,7 +404,7 @@ You can configure the following parameters, as well as those above, at service p
 running:
 
 ```
-cf create-service csb-aws-redis ... -c '{...}' <%# What are the placeholders? %>
+cf create-service csb-aws-redis PLAN-NAME SERVICE-INSTANCE-NAME -c '{"PARAMETER-NAME": "PARAMETER-VALUE"}
 ```
 
 <table>
@@ -453,8 +472,9 @@ cf create-service csb-aws-redis ... -c '{...}' <%# What are the placeholders? %>
     <tr>
       <td>node_type</td>
       <td>string</td>
-      <td>explicit <a href="https://aws.amazon.com/elasticache/pricing/">node type</a> overrides
-        <code>cache_size</code> conversion into node type per table above.
+      <td>Specifying the node type overrides the `cache-size` conversion to node type that is
+        described in the <strong>Cache Size to AWS Node Type Mapping</strong> table in the
+        <a href="#aws-elasticache-plans">Plans for Amazon ElastiCache</a> section above.
         For more information about node types and pricing, see the
         <a href="https://aws.amazon.com/elasticache/pricing/">AWS documentation</a>.</td>
       <td><%# n/a? %></td>
