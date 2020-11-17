@@ -9,7 +9,7 @@ These are release notes for <%= vars.product_full %>.
 
 ##<a id="1-0-0"></a> v1.0.0
 
-**Release Date:** November 16, 2020
+**Release Date:** November 17, 2020
 
 ### Features
 
@@ -18,4 +18,5 @@ New feature in this release:
 * **Initial release:** This is the initial release for the <%= vars.product_full %> tile.
 
 ### Known Issues
-There are no known issues for this release.
+* [POSTGRESQL]  Due to a limitation with AWS Postgres, instance plans cannot be changed to a smaller plan (using cf update-service -p). 
+This applies to subsumed Postgres Instances as well. Updates to an instance of PostgreSQL will fail if they attempt to update `storage_gb` See [AWS Docs for more details](https://aws.amazon.com/premiumsupport/knowledge-center/rds-db-storage-size/)
