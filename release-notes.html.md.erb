@@ -17,6 +17,13 @@ New feature in this release:
 
 * **Initial release:** This is the initial release for the <%= vars.product_full %> tile.
 
-### Known Issues
-* [POSTGRESQL]  Due to a limitation with AWS Postgres, instance plans cannot be changed to a smaller plan (using cf update-service -p). 
-This applies to subsumed Postgres Instances as well. Updates to an instance of PostgreSQL will fail if they attempt to update `storage_gb` See [AWS Docs for more details](https://aws.amazon.com/premiumsupport/knowledge-center/rds-db-storage-size/)
+### Known Issue
+
+This release has the following issue:
+
+* **PostgreSQL instances cannot be moved to smaller plans:**  Because of a limitation with AWS PostgreSQL,
+  instance plans cannot be changed to smaller plans, for example, through a `cf update-service -p` command.
+  This restriction also applies to subsumed PostgreSQL instances.
+  Updates to a PostgreSQL instance fail if they attempt to update `storage_gb`.
+  For information about decreasing the total provisioned storage size of an Amazon RDS DB instance,
+  see the [AWS documentation](https://aws.amazon.com/premiumsupport/knowledge-center/rds-db-storage-size/).
