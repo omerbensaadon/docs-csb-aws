@@ -18,5 +18,5 @@ New feature in this release:
 * **Initial release:** This is the initial release for the <%= vars.product_full %> tile.
 
 ### Known Issues
-* [POSTGRESQL] AWS does not allow updates that increase the PostgreSQL GB Capacity (such as going from basic to standard plans). 
-Updates to an instance of PostgreSQL will fail if they attempt to update `storage_gb` See [AWS Docs for more details](https://aws.amazon.com/premiumsupport/knowledge-center/rds-db-storage-size/)
+* [POSTGRESQL]  Due to a limitation with AWS Postgres, instance plans cannot be changed to a smaller plan (using cf update-service -p). 
+This applies to subsumed Postgres Instances as well. Updates to an instance of PostgreSQL will fail if they attempt to update `storage_gb` See [AWS Docs for more details](https://aws.amazon.com/premiumsupport/knowledge-center/rds-db-storage-size/)
