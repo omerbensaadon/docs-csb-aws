@@ -224,6 +224,24 @@ You can also configure these parameters using the `-c` flag when provisioning a 
       <td>If <code>true</code>, make instance available to public connections.</td>
       <td><code>false</code></td>
     </tr>
+     <tr>
+      <td><code>allow_major_version_upgrade</code></td>
+      <td>boolean</td>
+      <td>Indicates that major version upgrades are allowed. Changing this parameter does not result in an outage and the change is asynchronously applied as soon as possible.</td>
+      <td><code>true</code></td>
+    </tr>
+     <tr>
+      <td><code>allow_minor_version_upgrade</code></td>
+      <td>boolean</td>
+      <td>(Optional) Indicates that minor engine upgrades will be applied automatically to the DB instance during the maintenance window.</td>
+      <td><code>true</code></td>
+    </tr>
+       <tr>
+      <td><code>maintenance_day</code>,<code>maintenance_start_hour</code>,<code>maintenance_start_min</code>,<code>maintenance_end_hour</code>, <code>maintenance_end_min</code></td>
+      <td>boolean</td>
+      <td>(Optional)  Maintenance window definition.</td>
+      <td>Defaults vary by region, [see AWS Docs for more information](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow)</td>
+    </tr>
   </tbody>
 </table>
 
@@ -359,6 +377,24 @@ You can also configure these parameters using the `-c` flag when provisioning a 
       <td>boolean</td>
       <td>If <code>true</code>, make instance available to public connections.</td>
       <td><code>false</code></td>
+    </tr>
+         <tr>
+      <td><code>allow_major_version_upgrade</code></td>
+      <td>boolean</td>
+      <td>Indicates that major version upgrades are allowed. Changing this parameter does not result in an outage and the change is asynchronously applied as soon as possible.</td>
+      <td><code>true</code></td>
+    </tr>
+     <tr>
+      <td><code>allow_minor_version_upgrade</code></td>
+      <td>boolean</td>
+      <td>(Optional) Indicates that minor engine upgrades will be applied automatically to the DB instance during the maintenance window.</td>
+      <td><code>true</code></td>
+    </tr>
+       <tr>
+      <td><code>maintenance_day</code>,<code>maintenance_start_hour</code>,<code>maintenance_start_min</code>,<code>maintenance_end_hour</code>, <code>maintenance_end_min</code></td>
+      <td>boolean</td>
+      <td>(Optional)  Maintenance window definition.</td>
+      <td>Defaults vary by region, [see AWS Docs for more information](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow)</td>
     </tr>
   </tbody>
 </table>
