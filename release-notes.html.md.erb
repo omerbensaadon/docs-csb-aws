@@ -15,13 +15,16 @@ These are release notes for <%= vars.product_full %>.
 
 New features and changes in this release:
 
-* Added ability to specify Postgres, MySQL and Redis subnet group.
-This is useful if your Virtual Private Cloud (VPC) has an existing subnet group that you want to use.
+* Added ability to specify Postgres, MySQL and Redis subnet group. 
+This is useful if your Virtual Private Cloud (VPC) has an existing subnet group that you want to use. This feature can be found in the Postgres, MySQL or Redis
+tabs in Ops Man. 
 
-* Delivered functionality for #139.
-Improve legacy broker migration with additional properties for AWS RDS PostegreSQL plans.
+* Improve legacy broker migration with additional properties for AWS RDS PostegreSQL plans. 
+See the Service Plan and Configuration tab for more information.
+
 
 * Added functionality to allow major or minor upgrade and specify maintenance window for RDS Postgres and MySQL.
+See the Service Plan and Configuration tab for more information.
 
 
 ### Resolved Issues
@@ -31,7 +34,7 @@ This release has the following fixes:
 * Added new and necessary IAM policies to the configuration documentation.
 For more information, see [Prerequisites for Installing Cloud Service Broker for AWS](./installing-with-aws.html#prereq)
 
-* Marked defaults and required parameters in DynamoDB.
+* Marked defaults and required parameters in DynamoDB. This makes errors some customers are receiving much more user-friendly. 
 
 ### Known Issue
 
