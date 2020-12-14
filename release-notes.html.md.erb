@@ -11,21 +11,33 @@ These are release notes for <%= vars.product_full %>.
 
 **Release Date:** December 14, 2020
 
-## New Features: 
-[NEW] Added ability to specify Postgres, MySQL and Redis subnet group. This is useful if your VPC already has an existing subnet group that you want to use
-[NEW] Delivered functionality for #139. Improve legacy broker migration with additional properties for AWS RDS PostegreSQL plans
-[NEW] Added functionality to allow major/minor upgrade and specify maintenance window for RDS Postgres and MySQL
+### New Features
+
+New features and changes in this release:
+
+* Added ability to specify Postgres, MySQL and Redis subnet group.
+This is useful if your Virtual Private Cloud (VPC) has an existing subnet group that you want to use.
+
+* Delivered functionality for #139.
+Improve legacy broker migration with additional properties for AWS RDS PostegreSQL plans.
+
+* Added functionality to allow major or minor upgrade and specify maintenance window for RDS Postgres and MySQL.
 
 
-## Bug Fixes: 
-[DOCS] Added new and necessary IAM policies to the configuration Docs on TanzuNet (https://docs.pivotal.io/csb-aws/1-0/installing-with-aws.html)
-[FIX] Marked defaults and required parameters in DynamoDB
+### Resolved Issues
+
+This release has the following fixes:
+
+* Added new and necessary IAM policies to the configuration documentation.
+For more information, see [Prerequisites for Installing Cloud Service Broker for AWS](./installing-with-aws.html#prereq)
+
+* Marked defaults and required parameters in DynamoDB.
 
 ### Known Issue
 
 This release has the following issue:
 
-* **PostgreSQL instances cannot be moved to smaller plans:**  Because of a limitation with Amazon RDS for PostgreSQL,
+* **PostgreSQL instances cannot be moved to smaller plans:** Because of a limitation with Amazon RDS for PostgreSQL,
   instance plans cannot be changed to smaller plans, for example, through a `cf update-service -p` command.
   This restriction also applies to subsumed PostgreSQL instances.
   Updates to a PostgreSQL instance fail if they attempt an update that decreases `storage_gb`.
