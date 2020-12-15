@@ -224,6 +224,60 @@ You can also configure these parameters using the `-c` flag when provisioning a 
       <td>If <code>true</code>, make instance available to public connections.</td>
       <td><code>false</code></td>
     </tr>
+     <tr>
+      <td><code>allow_major_version_upgrade</code></td>
+      <td>boolean</td>
+      <td>Indicates that major version upgrades are allowed. Changing this parameter does not result in an outage and the change is asynchronously applied as soon as possible.</td>
+      <td><code>true</code></td>
+    </tr>
+     <tr>
+      <td><code>allow_minor_version_upgrade</code></td>
+      <td>boolean</td>
+      <td>(Optional) Indicates that minor engine upgrades will be applied automatically to the DB instance during the maintenance window.</td>
+      <td><code>true</code></td>
+    </tr>
+       <tr>
+      <td><code>maintenance_day</code>,<code>maintenance_start_hour</code>,<code>maintenance_start_min</code>,<code>maintenance_end_hour</code>, <code>maintenance_end_min</code></td>
+      <td>boolean</td>
+      <td>(Optional)  Maintenance window definition.</td>
+      <td>Defaults vary by region, [see AWS Docs for more information](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow)</td>
+    </tr>
+     <tr>
+      <td><code>storage_encrypted</code></td>
+      <td>boolean</td>
+      <td>If `true`, DB storage will be encrypted.</td>
+      <td><code>false</code></td>
+    </tr>
+     <tr>
+      <td><code>parameter_group_name</code></td>
+      <td>string</td>
+      <td>MySQL parameter group name for instance.</td>
+      <td><code>default.mysql.<mysql version></code></td>
+    </tr>
+      <tr>
+      <td><code>parameter_group_name</code></td>
+      <td>string</td>
+      <td>PostgreSQL parameter group name for instance.</td>
+      <td><code>default.mysql.<mysql version></code></td>
+    </tr>
+     <tr>
+      <td><code>rds_subnet_group</code></td>
+      <td>string</td>
+       <td>Name of subnet to attach DB instance to, overrides <code>aws_vpc_id</code></td>
+      <td>None</td>
+    </tr>
+      <tr>
+      <td><code>rds_vpc_security_group_ids</code></td>
+      <td>comma delimited string</td>
+      <td>Security group ID's to assign to DB instance</td>
+      <td>None</td>
+    </tr>
+      <tr>
+      <td><code>use_tls</code></td>
+      <td>boolean</td>
+      <td>Use TLS for DB connections</td>
+      <td>true</td>
+    </tr>
   </tbody>
 </table>
 
@@ -359,6 +413,60 @@ You can also configure these parameters using the `-c` flag when provisioning a 
       <td>boolean</td>
       <td>If <code>true</code>, make instance available to public connections.</td>
       <td><code>false</code></td>
+    </tr>
+         <tr>
+      <td><code>allow_major_version_upgrade</code></td>
+      <td>boolean</td>
+      <td>Indicates that major version upgrades are allowed. Changing this parameter does not result in an outage and the change is asynchronously applied as soon as possible.</td>
+      <td><code>true</code></td>
+    </tr>
+     <tr>
+      <td><code>allow_minor_version_upgrade</code></td>
+      <td>boolean</td>
+      <td>(Optional) Indicates that minor engine upgrades will be applied automatically to the DB instance during the maintenance window.</td>
+      <td><code>true</code></td>
+    </tr>
+       <tr>
+      <td><code>maintenance_day</code>,<code>maintenance_start_hour</code>,<code>maintenance_start_min</code>,<code>maintenance_end_hour</code>, <code>maintenance_end_min</code></td>
+      <td>boolean</td>
+      <td>(Optional)  Maintenance window definition.</td>
+      <td>Defaults vary by region, [see AWS Docs for more information](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow)</td>
+    </tr>
+         <tr>
+      <td><code>storage_encrypted</code></td>
+      <td>boolean</td>
+      <td>If `true`, DB storage will be encrypted.</td>
+      <td><code>false</code></td>
+    </tr>
+     <tr>
+      <td><code>parameter_group_name</code></td>
+      <td>string</td>
+      <td>PostgreSQL parameter group name for instance.</td>
+      <td><code>default.postgres.<postgres version></code></td>
+    </tr>
+      <tr>
+      <td><code>parameter_group_name</code></td>
+      <td>string</td>
+      <td>PostgreSQL parameter group name for instance.</td>
+      <td><code>default.mysql.<mysql version></code></td>
+    </tr>
+     <tr>
+      <td><code>rds_subnet_group</code></td>
+      <td>string</td>
+       <td>Name of subnet to attach DB instance to, overrides <code>aws_vpc_id</code></td>
+      <td>None</td>
+    </tr>
+      <tr>
+      <td><code>rds_vpc_security_group_ids</code></td>
+      <td>comma delimited string</td>
+      <td>Security group ID's to assign to DB instance</td>
+      <td>None</td>
+    </tr>
+      <tr>
+      <td><code>use_tls</code></td>
+      <td>boolean</td>
+      <td>Use TLS for DB connections</td>
+      <td>true</td>
     </tr>
   </tbody>
 </table>
