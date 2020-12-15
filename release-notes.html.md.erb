@@ -15,26 +15,29 @@ These are release notes for <%= vars.product_full %>.
 
 New features and changes in this release:
 
-* Added ability to specify Postgres, MySQL and Redis subnet group. 
-This is useful if your Virtual Private Cloud (VPC) has an existing subnet group that you want to use. This feature can be found in the Postgres, MySQL or Redis
-tabs in Ops Man. 
+* **Ability to specify PostgresSQL, MySQL, and Redis subnet group:**
+This is useful if your Virtual Private Cloud (VPC) has an existing subnet group that you want to use.
+You can configure this  in <%= vars.ops_manager %> in the **Config and Plans** panes for PostgresSQL, MySQL, and Redis.
 
-* Improve legacy broker migration with additional properties for AWS RDS PostegreSQL plans. 
-See the Service Plan and Configuration tab for more information.
+* **Improve legacy broker migration with additional properties for Amazon RDS PostegreSQL plans:**
+You can configure this in <%= vars.ops_manager %> in the **PostgresSQL Config and Plans** pane.
 
-
-* Added functionality to allow major or minor upgrade and specify maintenance window for RDS Postgres and MySQL.
-See the Service Plan and Configuration tab for more information.
-
+* **Functionality to allow major or minor upgrade and specify maintenance window:**
+This feature is available for the Amazon RDS for MySQL and Amazon RDS for PostgreSQL plans.
+You can add these as JSON parameters in <%= vars.ops_manager %> in the **Additional Plans**
+field of the **Config and Plans** panes for PostgresSQL and MySQL.
+<br>For the parameters to add, see the `allow_major_version_upgrade`, `allow_minor_version_upgrade`,
+and `maintenance` configuration parameters for your services on [Service Plan Reference](./reference.html).
 
 ### Resolved Issues
 
 This release has the following fixes:
 
-* Added new and necessary IAM policies to the configuration documentation.
+* **Added new and necessary IAM policies to the configuration documentation.**
 For more information, see [Prerequisites for Installing Cloud Service Broker for AWS](./installing-with-aws.html#prereq)
 
-* Marked defaults and required parameters in DynamoDB. This makes errors some customers are receiving much more user-friendly. 
+* **Marked defaults and required parameters in DynamoDB.**
+This makes the errors that some customers are receiving more user-friendly.
 
 ### Known Issue
 
